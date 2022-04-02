@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Spin, Alert } from "antd";
+import { Link } from "react-router-dom";
 import apiClient from "../../apiClient";
 import { variables } from "../../config/variables";
 import PropTypes from "prop-types";
@@ -52,18 +53,20 @@ const MoviesList = () => {
         ) : (
           moviesData?.data?.results.map((movie) => (
             <Col key={movie.id} xs={24} sm={12} md={10} lg={8} xl={6}>
-              <Card
-                className="movie-card"
-                hoverable
-                cover={
-                  <img
-                    alt={movie["title"]}
-                    src={`${variables.imagesBaseUrl}${movie["poster_path"]}`}
-                  />
-                }
-              >
-                <Meta title={movie["title"]} />
-              </Card>
+              <Link to={`/movie/${movie.id}`}>
+                <Card
+                  className="movie-card"
+                  hoverable
+                  cover={
+                    <img
+                      alt={movie["title"]}
+                      src={`${variables.imagesBaseUrl}${movie["poster_path"]}`}
+                    />
+                  }
+                >
+                  <Meta title={movie["title"]} />
+                </Card>
+              </Link>
             </Col>
           ))
         )}
