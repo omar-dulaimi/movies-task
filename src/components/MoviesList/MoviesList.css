@@ -1,1 +1,8 @@
-.MoviesList {}
+.MoviesList {
+}
+
+.movie-card {
+  width: 240px;
+  margin: auto;
+  margin-bottom: 2rem;
+}
