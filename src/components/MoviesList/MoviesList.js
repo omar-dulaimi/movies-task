@@ -58,7 +58,11 @@ const MoviesList = (props) => {
                 <Pagination
                   defaultCurrent={1}
                   current={currentPage}
-                  total={moviesData?.total_results}
+                  total={
+                    moviesData["total_results"] <= 5000
+                      ? moviesData["total_results"]
+                      : 5000
+                  }
                   showSizeChanger={false}
                   pageSizeOptions={{}}
                   onChange={(page) => {
