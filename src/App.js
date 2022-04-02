@@ -9,7 +9,7 @@ import "./App.css";
 
 function App() {
   const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedYear, setSelectedYear] = useState(null);
   const [moviesData, setMoviesData] = useState(null);
   const [filteredMoviesData, setFilteredMoviesData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
