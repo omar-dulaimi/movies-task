@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Row, Col, Card, Spin, Alert } from "antd";
 import { Link } from "react-router-dom";
-import apiClient from "../../apiClient";
 import { variables } from "../../config/variables";
 import PropTypes from "prop-types";
 import "./MoviesList.css";
@@ -9,32 +8,8 @@ import CenteredSpace from "../CenteredSpace/CenteredSpace";
 
 const { Meta } = Card;
 
-const MoviesList = () => {
-  const [moviesData, setMoviesData] = useState(null);
-  const [loadingState, setLoadingState] = useState({
-    type: "default",
-    message: "",
-  });
-
-  useEffect(() => {
-    setLoadingState({ type: "fetching" });
-    apiClient
-      .get("/popular", {
-        params: {
-          page: 1,
-        },
-      })
-      .then((response) => {
-        setMoviesData(response?.data);
-        setLoadingState({ type: "success" });
-      })
-      .catch((error) => {
-        setLoadingState({ type: "error", message: error.message });
-      });
-
-    return () => {};
-  }, []);
-
+const MoviesList = (props) => {
+  const { moviesData, loadingState, setCurrentPage } = props;
   return (
     <div className="MoviesList">
       <Row>
@@ -51,7 +26,7 @@ const MoviesList = () => {
             />
           </CenteredSpace>
         ) : (
-          moviesData?.data?.results.map((movie) => (
+          moviesData?.results.map((movie) => (
             <Col key={movie.id} xs={24} sm={12} md={10} lg={8} xl={6}>
               <Link to={`/movie/${movie.id}`}>
                 <Card
@@ -75,8 +50,21 @@ const MoviesList = () => {
   );
 };
 
-MoviesList.propTypes = {};
+MoviesList.propTypes = {
+  moviesData: PropTypes.object,
+  loadingState: PropTypes.object,
+  setCurrentPage: PropTypes.func,
+};
 
-MoviesList.defaultProps = {};
+MoviesList.defaultProps = {
+  moviesData: null,
+  loadingState: {
+    type: "default",
+    message: "",
+  },
+  setCurrentPage: () => {
+    throw new Error("Can't set current page due to not passed setter");
+  },
+};
 
 export default MoviesList;
