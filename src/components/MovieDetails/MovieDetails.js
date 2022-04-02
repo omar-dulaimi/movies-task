@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Col, Card, Spin, Alert, Statistic, Divider } from "antd";
 import apiClient from "../../apiClient";
+import { goToTop } from "../../utils";
 import { variables } from "../../config/variables";
 import CenteredSpace from "../CenteredSpace/CenteredSpace.lazy";
 import "./MovieDetails.css";
@@ -28,6 +29,7 @@ const MovieDetails = () => {
       .then((response) => {
         setMovieData(response?.data?.data);
         setLoadingState({ type: "success" });
+        goToTop();
       })
       .catch((error) => {
         setLoadingState({ type: "error", message: error.message });
