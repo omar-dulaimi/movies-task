@@ -1,5 +1,6 @@
 import axios from "axios";
+import { variables } from "./config/variables";
 
 export default axios.create({
-  baseURL: `https://movie-task.vercel.app/api`,
+  baseURL: variables.apiBaseUrl,
 });
