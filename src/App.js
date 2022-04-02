@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import apiClient from "./apiClient";
+import { goToTop } from "./utils";
 import MoviesList from "./components/MoviesList/MoviesList.lazy";
 import MovieDetails from "./components/MovieDetails/MovieDetails.lazy";
 import Header from "./components/Header/Header.lazy";
@@ -29,16 +30,27 @@ function App() {
         setMoviesData(response?.data?.data);
         setFilteredMoviesData(response?.data?.data);
         setLoadingState({ type: "success" });
+        goToTop();
       })
       .catch((error) => {
         setLoadingState({ type: "error", message: error.message });
       });
   };
 
+  const clearSelectedYear = () => {
+    setSelectedYear(null);
+    getMovies();
+  };
+
   useEffect(() => {
     getMovies();
     return () => {};
   }, []);
+
+  useEffect(() => {
+    getMovies();
+    return () => {};
+  }, [currentPage]);
 
   useEffect(() => {
     if (moviesData) {
@@ -60,6 +72,7 @@ function App() {
           selectedYear={selectedYear}
           setSelectedYear={setSelectedYear}
           currentYear={currentYear}
+          clearSelectedYear={clearSelectedYear}
         />
         <Routes>
           <Route
@@ -68,7 +81,9 @@ function App() {
               <MoviesList
                 moviesData={moviesData}
                 loadingState={loadingState}
+                currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                selectedYear={selectedYear}
               />
             }
           />

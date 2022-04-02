@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { PageHeader, Divider, Select } from "antd";
+import { PageHeader, Divider, Select, Button } from "antd";
 import { createArrayFromRange } from "../../utils";
 import PropTypes from "prop-types";
 import "./Header.css";
@@ -9,8 +9,9 @@ const { Option } = Select;
 
 const Header = (props) => {
   const location = useLocation();
-  const { selectedYear, setSelectedYear, currentYear } = props;
-  const startYear = selectedYear - 20;
+  const { selectedYear, setSelectedYear, currentYear, clearSelectedYear } =
+    props;
+  const startYear = currentYear - 20;
 
   const handleYearChange = (year) => {
     setSelectedYear(year);
@@ -35,6 +36,9 @@ const Header = (props) => {
                     </Option>
                   ))}
                 </Select>,
+                <Button disabled={!selectedYear} onClick={clearSelectedYear}>
+                  Clear
+                </Button>,
               ]
             : []
         }
@@ -48,6 +52,7 @@ Header.propTypes = {
   selectedYear: PropTypes.number,
   currentYear: PropTypes.number,
   setSelectedYear: PropTypes.func,
+  clearSelectedYear: PropTypes.func,
 };
 
 Header.defaultProps = {
@@ -55,6 +60,9 @@ Header.defaultProps = {
   currentYear: new Date().getFullYear(),
   setSelectedYear: () => {
     throw new Error("Can't set selected year due to not passed setter");
+  },
+  clearSelectedYear: () => {
+    throw new Error("Can't clear selected year due to not passed function");
   },
 };
 
