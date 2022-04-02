@@ -26,6 +26,7 @@ const Header = (props) => {
           location.pathname === "/"
             ? [
                 <Select
+                  key="year select"
                   defaultValue={selectedYear}
                   style={{ width: 120 }}
                   onChange={handleYearChange}
@@ -36,7 +37,11 @@ const Header = (props) => {
                     </Option>
                   ))}
                 </Select>,
-                <Button disabled={!selectedYear} onClick={clearSelectedYear}>
+                <Button
+                  key="clear button"
+                  disabled={!selectedYear}
+                  onClick={clearSelectedYear}
+                >
                   Clear
                 </Button>,
               ]
