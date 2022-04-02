@@ -6,3 +6,12 @@
   margin: auto;
   margin-bottom: 2rem;
 }
+
+.movies-list-paginator {
+  display: flex;
+  justify-content: right;
+  align-content: end;
+  align-items: end;
+  padding: 1rem;
+  width: 100%;
+}
