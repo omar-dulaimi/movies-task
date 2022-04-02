@@ -1,5 +1,4 @@
 .centered-space {
   width: 100%;
-  height: calc(100vh - 44px);
   justify-content: center;
 }
